@@ -6,9 +6,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { LoginSignUpModule } from './login_sign-up/login_sign-up.module';
 
 @Module({
-  imports: [AuthModule, UserModule,MongooseModule.forRoot('mongodb://localhost/project',{connectionName:'user'})],
+  imports: [AuthModule, UserModule,MongooseModule.forRoot('mongodb://localhost/project',{connectionName:'user'}), LoginSignUpModule],
   controllers: [AppController],
   providers: [AppService],
 })

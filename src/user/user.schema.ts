@@ -1,8 +1,9 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { IsEmail } from "class-validator";
+import { IsEmail, IsString, Matches, MinLength, Validate } from "class-validator";
 import { Document } from "mongoose";
 
 export type UserDocument = User & Document;
+
 
 @Schema()
 export class User {
@@ -30,10 +31,14 @@ export class User {
 
 export const UserSchema = SchemaFactory.createForClass(User)
 
-export interface createUserDTO {
-    name: string,
-    email: string,
-    username: string,
+export class createUserDTO {
+    name: string;
+    email: string;
+    username: string;
+
+    @IsString()
+    @MinLength(8)
+    @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,{message:'password should contain lower,upper,special character and number'})
     password: string
 }
 

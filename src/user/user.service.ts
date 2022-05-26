@@ -35,7 +35,7 @@ export class UserService{
   
     async FindOne(search:any):Promise<UserDbDTO|undefined>{
      try{
-   const user=await this.userModel.findOne(search)
+   const user=await this.userModel.findOne(search).exec()
         return user
      }
      catch(e){
