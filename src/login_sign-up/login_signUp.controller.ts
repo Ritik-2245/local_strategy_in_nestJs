@@ -1,5 +1,7 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
 import { AuthService } from "src/auth/auth.service";
+import { AuthenticatedGuard } from "src/auth/authenticated.guard";
+import { LocalAuthGuard } from "src/auth/local.auth.guard";
 import { createUserDTO, resUserDTO, UserDbDTO } from "src/user/user.schema";
 import { UserService } from "src/user/user.service";
 
@@ -38,7 +40,18 @@ export class Login_signUpController{
       console.log(e)
     }
     }
+    
+    @UseGuards(LocalAuthGuard)
+    @Post('login')
+    async Login(@Request() req){
+        return req.user
+    }
 
+    @UseGuards(AuthenticatedGuard)
+    @Get('protected')
+    async protected(@Request() req){
+        return req.user
+    }
   
 
 }
