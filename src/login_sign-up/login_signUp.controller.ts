@@ -52,6 +52,13 @@ export class Login_signUpController{
     async protected(@Request() req){
         return req.user
     }
+
+    @UseGuards(AuthenticatedGuard)
+    @Get('logout')
+    async Logout(@Request() req){
+      req.session.destroy()
+      return 'khatam tata bye bye gaya'
+    }
   
 
 }
